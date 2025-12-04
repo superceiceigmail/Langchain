@@ -15,7 +15,7 @@ from langchain.document_loaders import TextLoader
 from langchain.schema import Document
 
 def build_vectorstore():
-    # For demo we create a few simple documents. In practice load files with DocumentLoaders.
+    # For demo we create a few simple documents. In langchain_practice load files with DocumentLoaders.
     docs = [
         Document(page_content="LangChain 是一个用于构建基于 LLM 应用的框架。它把 prompt、chains、agents、memory 组合在一起。"),
         Document(page_content="Chroma 是一个轻量的向量数据库，常用于本地开发与测试。"),
