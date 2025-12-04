@@ -6,6 +6,10 @@ openai.json
 .env.development.local
 .env.test.local
 .env.production.local
+.env.*
+*.pyc
+.DS_Store
+chromadb/    # 如果你把 Chroma 数据库文件放在本地
 config.json
 secrets/
 

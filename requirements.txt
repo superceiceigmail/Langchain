@@ -1,0 +1,7 @@
+langchain
+openai
+python-dotenv
+chromadb
+faiss-cpu
+tqdm
+pytest
