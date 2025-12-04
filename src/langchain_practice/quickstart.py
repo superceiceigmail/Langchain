@@ -2,9 +2,38 @@
 Basic quickstart for LangChain (LLMChain + PromptTemplate + ChatOpenAI)
 Run:
   python -m src.langchain_practice.quickstart
-Requires OPENAI_API_KEY in env.
+
+This script supports loading OpenAI key from:
+  1) openai.json at project root with format {"key": "sk-..."} (preferred)
+  2) .env (via python-dotenv)
+  3) environment variable OPENAI_API_KEY
 """
 import os
+import json
+from pathlib import Path
+from dotenv import load_dotenv
+
+def load_key_from_openai_json(path: str = "openai.json"):
+    p = Path(path)
+    if not p.exists():
+        return None
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    # support a few common keys
+    for k in ("key", "api_key", "OPENAI_API_KEY"):
+        if isinstance(data.get(k), str) and data.get(k).startswith("sk-"):
+            return data.get(k)
+    return None
+
+# 1) Try openai.json first
+key_from_file = load_key_from_openai_json()
+if key_from_file:
+    os.environ["OPENAI_API_KEY"] = key_from_file
+
+# 2) Load .env (if present). This will not override openai.json result above.
+load_dotenv()
 
 from langchain.chat_models import ChatOpenAI
 from langchain import LLMChain, PromptTemplate
@@ -12,10 +41,15 @@ from langchain import LLMChain, PromptTemplate
 def main():
     api_key = os.environ.get("OPENAI_API_KEY")
     if not api_key:
-        raise RuntimeError("Please set OPENAI_API_KEY in your environment")
+        raise RuntimeError("Please set OPENAI_API_KEY (openai.json, .env or env variable)")
 
-    # Construct a chat LLM (temperature small for reproducible outputs)
-    llm = ChatOpenAI(temperature=0.2)
+    model_name = os.environ.get("MODEL_NAME")  # optional, e.g. "gpt-4o-mini"
+    llm_kwargs = {"temperature": 0.2}
+    if model_name:
+        llm_kwargs["model"] = model_name
+
+    # Construct a chat LLM
+    llm = ChatOpenAI(**llm_kwargs)
 
     # A simple prompt template
     template = """You are a helpful assistant.
