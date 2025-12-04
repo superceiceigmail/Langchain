@@ -1,0 +1,75 @@
+# API 密钥和配置文件（重要！）
+openai.json
+*.key
+*.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+config.json
+secrets/
+
+# Python 相关
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cgi
+*.egg
+MANIFEST
+
+# 虚拟环境
+.venv
+venv/
+env/
+ENV/
+
+# IDE 文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 日志文件
+*.log
+logs/
+
+# 测试相关
+.coverage
+.pytest_cache/
+htmlcov/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# LangChain 缓存
+.langchain/
+
+# 临时文件
+temp/
+tmp/
+tmp/
